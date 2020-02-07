@@ -3,6 +3,8 @@ class BooksController < ApplicationController
 	def show
   	@book = Book.find(params[:id])
 		@new_book = Book.new
+		@new_bookcomment = BookComment.new
+		@book_comments = BookComment.all
   end
 
 	def index
@@ -11,8 +13,7 @@ class BooksController < ApplicationController
   end
 
 	def create
-  	@book = Book.new(book_params) #Bookモデルのテーブルを使用しているのでbookコントローラで保存する。
-		@book.user = current_user
+  	@book = current_user.books.new(book_params) #Bookモデルのテーブルを使用しているのでbookコントローラで保存する。
   	if @book.save #入力されたデータをdbに保存する。
   		redirect_to @book, notice: "successfully created book!"#保存された場合の移動先を指定。
   	else
@@ -21,7 +22,7 @@ class BooksController < ApplicationController
   	end
   end
 
-  def edit
+	def edit
 		@book = Book.find(params[:id])
 		@user = @book.user
 		unless @user == current_user

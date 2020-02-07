@@ -1,4 +1,5 @@
-<%= render 'layouts/error_messages', book: @new_book%>
+<%= render 'layouts/error_messages', book: @new_bookcomment %>
+<%= render 'layouts/error_messages', book: @new_book %>
 
 <div class="row">
 	<div class="col-xs-3">
@@ -15,22 +16,25 @@
 		<h2>Book detail</h2>
 
 		<table class="table">
-				<tr>
-					<td>
-						<%= link_to (@book.user) do %>
-						<%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
-						<%= @book.user.name %>
-						<% end %>
-					</td>
-					<td><%= link_to @book.title, @book %></td>
-					<td><%= @book.body %></td>
-					<% if @book.user == current_user%>
-					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
-					<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+			<tr>
+				<td>
+					<%= link_to (@book.user) do %>
+					<%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+					<%= @book.user.name %>
 					<% end %>
-				</tr>
-			</table>
-
+				</td>
+				<td><%= link_to @book.title, @book %></td>
+				<td><%= @book.body %></td>
+				<td><%= render 'layouts/favorites', book: @book %></td>
+				<td><%= link_to "コメント数：#{@book.book_comments.count}", book_path(@book.id) %></td>
+				<% if @book.user == current_user%>
+				<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
+				<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+				<% end %>
+			</tr>
+		</table>
+		<%= render 'layouts/new_bookcomments', book: @book,book_comment: @new_bookcomment %>
+		<%= render 'layouts/bookcomments', book: @book %>
 	</div>
 </div>
 
