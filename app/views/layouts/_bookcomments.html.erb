@@ -1,0 +1,25 @@
+<ol>
+  <% book.book_comments.each do |book_comment| %>
+    <li class="comment">
+      <div class="comment-body bb">
+        <div class="comment-avatar">
+          <div class="avatar">
+              <%= image_tag('no_image.jpg', style: "width: 60px; height: 60px;") %>
+          </div>
+        </div>
+      <div class="comment-text">
+        <div class="comment-author clearfix">
+          <a href="#" class="link-author"><%= book_comment.user.name %></a>
+            <span class="comment-meta">
+              <span class="comment-date"><%= book_comment.created_at.strftime('%Y/%m/%d') %></span>
+            </span>
+        </div>
+        <div class="comment-entry"><%= book_comment.comment %></div>
+          <% if book_comment.user_id == current_user.id%>
+            <%= link_to "Destroy",book_book_comments_path(book_comment), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ol>
