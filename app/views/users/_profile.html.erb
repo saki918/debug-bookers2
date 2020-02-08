@@ -1,18 +1,30 @@
 <div class = "col-xs-9">
-	<table class="table">
-			<tr><%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %></tr>
+<p id = "notice"><%= notice %></p>
+  <table class="table">
+      <tr><%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %></tr>
 
-			<tr>
-				<th>name</th>
-				<th><%= user.name %></th>
-			</tr>
+      <tr>
+        <th>name</th>
+        <th><%= user.name %></th>
+      </tr>
 
-			<tr>
-				<th>introduction</th>
-				<th><%= user.introduction %></th>
-			</tr>
-	</table>
+      <tr>
+        <th>introduction</th>
+        <th><%= user.introduction %></th>
+      </tr>
+      <tr>
+        <th>フォロー数：</th>
+        <th><%= link_to "#{user.followings.count}", relationships_path(current_user.id) %></th>
+      </tr>
+      <tr>
+        <th>フォロワー数</th>
+        <th><%= link_to "#{user.followers.count}", relationship_path(current_user.id) %></th>
+      </tr>
+      <tr>
+        <th><%= render 'relationships/follow_button', user: user %></th>
+      </tr>
+  </table>
 </div>
 <div class="row">
-	<%= link_to '',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+  <%= link_to '',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>
