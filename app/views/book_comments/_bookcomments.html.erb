@@ -16,7 +16,7 @@
         </div>
         <div class="comment-entry"><%= book_comment.comment %></div>
           <% if book_comment.user_id == current_user.id%>
-            <%= link_to "Destroy",book_book_comments_path(book_comment), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %>
+            <%= link_to "Destroy",book_book_comments_path(book_comment), method: :delete, remote: true, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %>
           <% end %>
         </div>
       </div>

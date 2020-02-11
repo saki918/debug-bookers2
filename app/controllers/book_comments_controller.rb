@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BookCommentsController < ApplicationController
   def create
     @book = Book.find(params[:book_id])
@@ -7,17 +9,19 @@ class BookCommentsController < ApplicationController
     if @new_bookcomment.save
       redirect_to book_path(@book)
     else
-    render 'books/show'
+      render 'books/show'
     end
   end
+
   def destroy
     book_comment = BookComment.find(params[:book_id])
     book_comment.destroy
     redirect_to request.referer
   end
 
-    private
-    def book_comment_params
-        params.require(:book_comment).permit(:user_id,:book_id,:comment)
-    end
+  private
+
+  def book_comment_params
+    params.require(:book_comment).permit(:user_id, :book_id, :comment)
+  end
 end
