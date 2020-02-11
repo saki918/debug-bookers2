@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :baria_user, only: %i[update edit]
+  before_action :baria_user, only: [:update, :edit]
 
   def show
     @user = User.find(params[:id])
